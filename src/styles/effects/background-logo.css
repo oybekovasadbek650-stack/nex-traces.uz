@@ -1,0 +1,44 @@
+.background-logo {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  place-items: center;
+  perspective: 1100px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.background-logo svg {
+  width: min(88vw, 124vh);
+  height: auto;
+  overflow: visible;
+  will-change: transform;
+}
+
+.background-logo .logo-letter {
+  opacity: 1;
+  fill: var(--color-watermark);
+}
+
+.background-logo .logo-orbit-base {
+  fill: var(--color-watermark-faint);
+}
+
+.background-logo g[mask] path {
+  fill: var(--color-watermark-drawn);
+}
+
+.background-logo mask path {
+  fill: none;
+}
+
+.background-logo .logo-star {
+  fill: var(--color-watermark-star);
+}
+
+@media (max-width: 820px) {
+  .background-logo svg {
+    width: 128vw;
+  }
+}

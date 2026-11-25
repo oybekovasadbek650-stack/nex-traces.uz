@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Nex Traces | AI nazorat, CRM va biznes tizimlari</title>
+    <meta
+      name="description"
+      content="Nex Traces kamera AI nazorati, xodimlar davomati, CRM integratsiyasi va hisobotlar uchun dasturlar quradi. Research &amp; Development."
+    />
+    <meta name="application-name" content="Nex Traces" />
+    <meta name="apple-mobile-web-app-title" content="Nex Traces" />
+    <meta name="theme-color" content="#060708" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="/icons/icon-96.png" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nex Traces" />
+    <meta property="og:title" content="Nex Traces | AI nazorat, CRM va biznes tizimlari" />
+    <meta
+      property="og:description"
+      content="Nex Traces kamera AI nazorati, xodimlar davomati, CRM integratsiyasi va hisobotlar uchun dasturlar quradi. Research &amp; Development."
+    />
+    <meta property="og:locale" content="uz_UZ" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Exo+2:wght@400..700&family=Onest:wght@400;500;600&family=Saira:wdth,wght@100..125,400..700&display=swap"
+    />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <div id="intro" class="intro" aria-hidden="true">
+      <div class="intro__backdrop"></div>
+      <div class="intro__logo"></div>
+    </div>
+    <header class="hero">
+      <canvas class="orbital-sky" aria-hidden="true"></canvas>
+      <div class="container">
+        <div class="site-header">
+          <div class="brand">
+            <img src="/src/assets/logo/mark.svg" alt="" /><b
+              >NEX TRACES<span>Research &amp; Development</span></b
+            >
+          </div>
+          <nav aria-label="Asosiy">
+            <a href="#ishlar">Ishlar</a><a href="#tartib">Ish tartibi</a><a href="#aloqa">Aloqa</a>
+          </nav>
+          <div class="language-switch" role="group" aria-label="Til">
+            <button type="button" id="lang-uz" lang="uz">UZ</button
+            ><button type="button" id="lang-ru" lang="ru">RU</button>
+          </div>
+        </div>
+        <div class="hero__content">
+          <div>
+            <h1>Kameradan hisobotgacha bitta tizim</h1>
+            <p>
+              Kuzatuv, xodimlar, CRM va hisobotlarni tartibga soladigan dasturlar quramiz. Quyida
+              to'rtta haqiqiy jarayonni bosib ko'ring.
+            </p>
+            <div class="hero__actions">
+              <a class="button" href="#aloqa">Loyihani muhokama qilish</a
+              ><a class="button button--secondary" href="#ishlar">Ishlarni ko'rish</a>
+            </div>
+            <button type="button" class="motion-toggle" id="motion-toggle">Fonni to'xtatish</button
+            ><button type="button" class="motion-toggle" id="replay-intro">
+              Logoni ovoz bilan ko'rish
+            </button>
+          </div>
+          <img
+            class="hero__logo"
+            src="/src/assets/logo/mark.svg"
+            width="835"
+            height="520"
+            alt="Nex Traces logosi"
+          />
+        </div>
+        <div class="process-demo">
+          <div
+            class="process-tabs"
+            id="process-tabs"
+            role="group"
+            aria-label="Jarayonni tanlang"
+          ></div>
+          <div class="process-stage" id="process-stage"></div>
+          <svg id="process-orbit" viewBox="0 0 1200 150" aria-hidden="true">
+            <defs>
+              <linearGradient id="orbit-gradient">
+                <stop stop-color="#3a4147" />
+                <stop offset=".7" stop-color="#ffffff" />
+                <stop offset="1" stop-color="#5d666d" />
+              </linearGradient>
+              <radialGradient id="orbit-glow">
+                <stop stop-color="#fff" stop-opacity=".55" />
+                <stop offset="1" stop-color="#fff" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <path
+              id="process-orbit-path"
+              d="M30 92 C300 118 820 104 1170 24"
+              fill="none"
+              stroke="url(#orbit-gradient)"
+              stroke-width="2.5"
+            />
+            <g id="process-orbit-star">
+              <circle r="30" fill="url(#orbit-glow)" />
+              <path d="M0-17 L3-3 L17 0 L3 3 L0 17 L-3 3 L-17 0 L-3-3Z" fill="#fff" />
+            </g>
+          </svg>
+          <ol class="process-steps" id="process-steps"></ol>
+          <p class="process-demo__note">
+            Ekrandagi ism, vaqt va raqamlar namuna. Jarayonlar biz qurgan tizimlardan olingan.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-content" id="page-content">
+      <main>
+        <section id="xizmat">
+          <div class="container">
+            <h2>Nima qilamiz</h2>
+            <div class="services">
+              <div>
+                <h3>Kamera va AI nazorat</h3>
+                <p>Mavjud kameralardagi vaziyatni topamiz va mas'ul odamga yetkazamiz.</p>
+              </div>
+              <div>
+                <h3>Xodimlar va davomat</h3>
+                <p>Kelish-ketish, ish jadvali va maoshni bitta hisobga bog'laymiz.</p>
+              </div>
+              <div>
+                <h3>CRM va integratsiya</h3>
+                <p>CRM, Telegram, jadval va terminallar o'rtasida ma'lumot o'zi yuradi.</p>
+              </div>
+              <div>
+                <h3>Hisobot va boshqaruv</h3>
+                <p>Rahbar holatni, mas'ulni va muddatni bitta panelda ko'radi.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="ishlar">
+          <div class="container">
+            <h2>Asosiy ishlar</h2>
+
+            <article class="case-study">
+              <div class="case-study__text">
+                <h3>Maktab va bog'cha kameralari uchun AI nazorat</h3>
+                <p>
+                  Ko'p filialli ta'lim tarmog'ida operatorlar hamma kamerani bir vaqtda kuzata
+                  olmaydi. Tizim mavjud kameralarga ulanadi, shubhali vaziyatni topadi va odamga
+                  tekshirishga yuboradi.
+                </p>
+                <ul>
+                  <li>
+                    YOLO kadrdagi odamlarni topadi, ko'ruvchi til modeli vaziyatni tushuntiradi.
+                  </li>
+                  <li>Holatlar A dan H gacha kod va xavflilik darajasi bilan yoziladi.</li>
+                  <li>Modellar o'z kompyuterimizda, lokal ishlaydi.</li>
+                  <li>Yakuniy qarorni Telegramda mas'ul xodim beradi.</li>
+                </ul>
+                <p class="tech-stack">
+                  Python, OpenCV, RTSP, Hikvision ISAPI, YOLO11, Qwen3-VL, Ollama, Telegram
+                </p>
+              </div>
+              <figure class="video" id="video-kamera">
+                <video
+                  data-name="camera"
+                  width="1280"
+                  height="720"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  aria-label="Kamera nazorati qanday ishlaydi: kamera, AI tekshiruvi, odam qarori va hisobot"
+                ></video>
+                <figcaption>
+                  <span>Namuna ma'lumot.</span><button type="button">Videoni yurgizish</button>
+                </figcaption>
+              </figure>
+            </article>
+
+            <article class="case-study case-study--reversed">
+              <div class="case-study__text">
+                <h3>Xodim+: davomatdan maoshgacha</h3>
+                <p>
+                  Xodim telefonda yoki Face ID terminalda belgilanadi. Ish jadvali, kechikish,
+                  topshiriq va maosh hisobi shu ma'lumotdan shakllanadi.
+                </p>
+                <ul>
+                  <li>GPS va selfi orqali mobil davomat, yuzni solishtirish.</li>
+                  <li>Hikvision va ZKTeco terminallari bilan integratsiya.</li>
+                  <li>Maosh avtomatik hisoblanadi va Excelga chiqadi.</li>
+                  <li>Har bir kompaniya ma'lumoti alohida. Buni 13 ta test tekshiradi.</li>
+                </ul>
+                <p class="tech-stack">
+                  NestJS, PostgreSQL, Prisma, Next.js, Flutter, InsightFace, Docker
+                </p>
+              </div>
+              <figure class="video" id="video-xodim">
+                <video
+                  data-name="staff"
+                  width="1280"
+                  height="720"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  aria-label="Xodim+ qanday ishlaydi: kelish, tekshiruv, davomat va maosh"
+                ></video>
+                <figcaption>
+                  <span>Namuna ma'lumot.</span><button type="button">Videoni yurgizish</button>
+                </figcaption>
+              </figure>
+            </article>
+
+            <article class="case-study">
+              <div class="case-study__text">
+                <h3>O'rinbosar o'qituvchi topish tizimi</h3>
+                <p>
+                  O'qituvchi kela olmasa, tizim jadval va qoidalar bo'yicha bo'sh nomzodlarni
+                  tanlaydi. Taklif Telegramga boradi, rahbariyat natijani panelda ko'radi.
+                </p>
+                <ul>
+                  <li>O'qituvchi uchun Telegram Mini App, rahbariyat uchun veb panel.</li>
+                  <li>Bog'cha, maktab va akademiya o'z rangi hamda atamalari bilan ishlaydi.</li>
+                  <li>Har bir sahifada yuklanish, bo'sh va xato holati ishlangan.</li>
+                </ul>
+                <p class="tech-stack">
+                  React 19, TypeScript, Tailwind CSS, TanStack Query, Telegram Mini App
+                </p>
+              </div>
+              <figure class="video" id="video-orinbosar">
+                <video
+                  data-name="substitute"
+                  width="1280"
+                  height="720"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  aria-label="Rahbariyat paneli: kelmagan o'qituvchi, o'rinbosarni tasdiqlash va oylik hisobot"
+                ></video>
+                <figcaption>
+                  <span>Namuna ma'lumot.</span><button type="button">Videoni yurgizish</button>
+                </figcaption>
+              </figure>
+            </article>
+            <article class="case-study case-study--reversed">
+              <div class="case-study__text">
+                <h3>Haftalik tahlil boti</h3>
+                <p>
+                  Google Sheets jurnalidan kunlik dinamika, takroriy holatlar va xulosali tayyor
+                  taqdimot chiqaradi.
+                </p>
+                <ul>
+                  <li>Kanaldagi video, rasm va izohlar bazaga yoziladi.</li>
+                  <li>Holat darajasi izohdan aniqlanadi.</li>
+                  <li>Hafta va oy bo'yicha tahlil tayyor fayl bo'lib keladi.</li>
+                </ul>
+                <p class="tech-stack">Python, Google Sheets, Telegram</p>
+              </div>
+              <figure class="video" id="video-tahlil">
+                <video
+                  data-name="analytics"
+                  width="1280"
+                  height="720"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  aria-label="Haftalik tahlil boti qanday ishlaydi: ma'lumot, daraja, tahlil va taqdimot"
+                ></video>
+                <figcaption>
+                  <span>Namuna ma'lumot.</span><button type="button">Videoni yurgizish</button>
+                </figcaption>
+              </figure>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <div class="container">
+            <h2>Yana qurgan ishlarimiz</h2>
+            <ul class="project-list">
+              <li>
+                <h3>AI va CRM ulanishi</h3>
+                <p>
+                  AI yordamchi amoCRM ichidagi bitim, kontakt va vazifalar bilan oddiy suhbat orqali
+                  ishlaydi.
+                </p>
+                <p class="tech-stack">TypeScript, MCP, amoCRM API</p>
+              </li>
+              <li>
+                <h3>Filiallar hisoboti</h3>
+                <p>
+                  Telegramdagi xabarlar bazaga tushadi. Admin holat, mas'ul, izoh va oylik
+                  statistikani boshqaradi.
+                </p>
+                <p class="tech-stack">NestJS, PostgreSQL, Telegram</p>
+              </li>
+              <li>
+                <h3>Audit nazorati</h3>
+                <p>
+                  Auditor muammo qo'shadi, mas'ul bartaraf etadi, auditor qabul qiladi yoki
+                  qaytaradi.
+                </p>
+                <p class="tech-stack">NestJS, React, PostgreSQL</p>
+              </li>
+
+              <li>
+                <h3>Koreya vizasi holati</h3>
+                <p>
+                  Talaba pasport ma'lumoti bilan ariza holatini to'rt tilda tekshiradi. Sayt:
+                  <a href="https://krcheck.uz">krcheck.uz</a>
+                </p>
+                <p class="tech-stack">Rasmiy portal bilan integratsiya</p>
+              </li>
+              <li>
+                <h3>CV.uz</h3>
+                <p>
+                  O'zbek, ingliz va rus tillarida rezyume yasaydi, AI bilan matnni yaxshilaydi va
+                  PDF tayyorlaydi.
+                </p>
+                <p class="tech-stack">Next.js, AI API</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section id="tartib">
+          <div class="container">
+            <h2>Ishni qanday boshlaymiz</h2>
+            <ol class="workflow">
+              <li>
+                <h3>Jarayonni ko'ramiz</h3>
+                <p>Ish hozir qanday yuradi, ma'lumot qayerda yo'qoladi, kim nimaga javob beradi.</p>
+              </li>
+              <li>
+                <h3>Rejani yozamiz</h3>
+                <p>
+                  Talablar, ekranlar, ma'lumotlar bazasi va bosqichlar kod yozishdan oldin
+                  kelishiladi.
+                </p>
+              </li>
+              <li>
+                <h3>Bosqichma-bosqich quramiz</h3>
+                <p>Avval eng kerakli qism ishga tushadi. Uni amalda sinab, keyingisiga o'tamiz.</p>
+              </li>
+              <li>
+                <h3>Ulab topshiramiz</h3>
+                <p>Kamera, CRM, Telegram va hisobotlarni bog'laymiz, xodimlarga ko'rsatamiz.</p>
+              </li>
+            </ol>
+          </div>
+        </section>
+        <section>
+          <div class="container">
+            <h2>Ko'p so'raladigan savollar</h2>
+            <div class="faq">
+              <details open>
+                <summary>Menda hali faqat g'oya bor. Murojaat qilsam bo'ladimi?</summary>
+                <p>
+                  Ha. Jarayonni gapirib bersangiz yetarli. Talablar va ekranlarni birga yozamiz.
+                </p>
+              </details>
+              <details>
+                <summary>Hozirgi kamera va CRM bilan ishlaysizmi?</summary>
+                <p>Odatda mavjud tizimga ulanamiz. Avval model va ulanish imkonini tekshiramiz.</p>
+              </details>
+              <details>
+                <summary>Ma'lumotlar qayerda saqlanadi?</summary>
+                <p>
+                  Bu loyiha boshida kelishiladi. Masalan, kamera tizimimizda AI modellari lokal
+                  kompyuterda ishlaydi.
+                </p>
+              </details>
+              <details>
+                <summary>Narx va muddat qanday aniqlanadi?</summary>
+                <p>Jarayonni ko'rib, ish hajmi va bosqichlarni yozganimizdan keyin.</p>
+              </details>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <section class="contact-section" id="aloqa">
+        <canvas class="orbital-sky" aria-hidden="true"></canvas>
+        <div class="container">
+          <div>
+            <h2>Qaysi ishingiz qo'lda qolib ketgan?</h2>
+            <p class="contact-section__lead">
+              Jarayonni ikki-uch gapda yozing. Uni qanday tizimga solish mumkinligini birga ko'rib
+              chiqamiz.
+            </p>
+            <p class="contact-section__hint">Qaysi birimizga yozsangiz ham bo'ladi.</p>
+          </div>
+          <div class="contact-list" id="contact-list"></div>
+          <p class="site-footer">© 2026 Nex Traces. Research &amp; Development</p>
+        </div>
+      </section>
+
+      <svg class="section-trace" id="section-trace" aria-hidden="true">
+        <path class="section-trace__rail" />
+        <path class="section-trace__line" />
+        <path
+          class="section-trace__star"
+          d="M0-15 L3-3 L15 0 L3 3 L0 15 L-3 3 L-15 0 L-3-3Z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    <div class="contact-dock" id="contact-dock"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

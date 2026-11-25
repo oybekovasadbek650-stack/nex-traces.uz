@@ -1,0 +1,41 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0.6rem 1.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--color-ice);
+  color: var(--color-on-ice);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% 100%,
+    14px 100%,
+    0 calc(100% - 14px)
+  );
+}
+
+.button:hover {
+  background: var(--color-ice-hover);
+}
+
+.button--secondary {
+  background: var(--color-button-secondary);
+  color: var(--color-on-night);
+}
+
+.button--secondary:hover {
+  background: var(--color-button-secondary-hover);
+}
+
+.button:focus-visible {
+  outline-offset: -5px;
+  outline-color: var(--color-on-ice);
+}
+
+.button--secondary:focus-visible {
+  outline-color: var(--color-ice);
+}

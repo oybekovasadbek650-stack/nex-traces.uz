@@ -1,0 +1,45 @@
+.video {
+  min-width: 0;
+  margin: 0;
+}
+
+.video video {
+  --cut: clamp(1.4rem, 3.5vw, 2.6rem);
+
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--color-night);
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut))
+  );
+}
+
+.video figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: clamp(1.4rem, 3.5vw, 2.6rem);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.video button {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-link);
+  font: 500 0.9rem var(--font-body);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+}

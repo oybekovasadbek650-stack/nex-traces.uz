@@ -1,0 +1,25 @@
+.container {
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-left: max(clamp(16px, 4vw, 48px), env(safe-area-inset-left, 0px));
+  padding-right: max(clamp(16px, 4vw, 48px), env(safe-area-inset-right, 0px));
+}
+
+section {
+  padding-block: clamp(4rem, 9vw, 7.5rem);
+}
+
+.page-content {
+  position: relative;
+}
+
+main .container {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 820px) {
+  .page-content .container {
+    padding-left: max(30px, env(safe-area-inset-left, 0px));
+  }
+}

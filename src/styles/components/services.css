@@ -1,0 +1,18 @@
+.services {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.2rem clamp(2rem, 6vw, 6rem);
+}
+
+.services p {
+  color: var(--color-text-muted);
+  max-width: 48ch;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .services {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

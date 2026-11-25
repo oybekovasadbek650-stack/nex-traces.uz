@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <title>Video sahnasi</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500..700&family=JetBrains+Mono:wght@400;600&family=Onest:wght@400;500;600&family=Saira:wdth,wght@100..125,400..700&display=swap"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        background: #060708;
+        color: #eceff1;
+        font-family: Onest, sans-serif;
+      }
+      #stars,
+      #orbit {
+        position: absolute;
+        inset: 0;
+      }
+      header {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 96px;
+        padding: 0 120px 0 48px;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        background: #0e1113;
+        border-bottom: 2px solid #2b3136;
+        font:
+          600 34px Saira,
+          'Exo 2',
+          sans-serif;
+      }
+      header img {
+        height: 54px;
+      }
+      header span {
+        margin-left: auto;
+        font: 500 26px Onest;
+        color: #a9b2b9;
+      }
+      #text {
+        position: absolute;
+        left: 48px;
+        top: 168px;
+        width: 520px;
+      }
+      #text b {
+        display: block;
+        font:
+          600 34px 'JetBrains Mono',
+          monospace;
+        color: #8fd3ff;
+      }
+      #text h1 {
+        margin: 14px 0 20px;
+        font:
+          600 62px/1.06 Saira,
+          'Exo 2',
+          sans-serif;
+        letter-spacing: -0.02em;
+      }
+      #text p {
+        font-size: 35px;
+        line-height: 1.35;
+        color: #c3cbd1;
+      }
+      #visual {
+        position: absolute;
+        left: 620px;
+        top: 148px;
+        width: 612px;
+        height: 412px;
+        padding: 34px;
+        background: #15191c;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        clip-path: polygon(
+          0 0,
+          calc(100% - 44px) 0,
+          100% 44px,
+          100% 100%,
+          44px 100%,
+          0 calc(100% - 44px)
+        );
+      }
+      #visual.photo {
+        padding: 0;
+        background: #eef2f7;
+      }
+      #visual img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 0;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #30373c;
+        font-size: 32px;
+      }
+      .row:last-child {
+        border: 0;
+        padding: 0;
+      }
+      .row i {
+        font:
+          600 32px 'JetBrains Mono',
+          monospace;
+        color: #8fd3ff;
+      }
+      .message {
+        align-self: flex-start;
+        padding: 22px 28px;
+        border-radius: 6px 24px 24px 24px;
+        background: #252b30;
+        font-size: 32px;
+        line-height: 1.35;
+      }
+      .buttons {
+        display: flex;
+        gap: 18px;
+      }
+      .buttons span {
+        flex: 1;
+        padding: 18px;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 600;
+        background: #2b3136;
+      }
+      .buttons .on {
+        background: #8fd3ff;
+        color: #06202f;
+      }
+      .bars {
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+        gap: 22px;
+        border-bottom: 3px solid #5d666d;
+      }
+      .bars div {
+        flex: 1;
+        background: linear-gradient(#8fd3ff, #2f95cf);
+      }
+      .dot {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stars" width="1280" height="720"></canvas>
+    <svg id="orbit" viewBox="0 0 1280 720" fill="none"></svg>
+    <header>
+      <img src="/src/assets/logo/mark.svg" alt="" />
+      <div id="title"></div>
+      <span id="note"></span>
+    </header>
+    <div id="text"></div>
+    <div id="visual"></div>
+    <script type="module">
+      import { SCENES } from './scenes.js';
+
+      const params = new URLSearchParams(location.search);
+      const locale = params.get('locale') ?? 'uz';
+      const scene = SCENES[params.get('scene')];
+      const index = locale === 'ru' ? 1 : 0;
+      const tr = (value) => (Array.isArray(value) ? value[index] : value);
+      const $ = (id) => document.getElementById(id);
+      const clamp = (value) => Math.max(0, Math.min(1, value));
+      const ease = (value) => 1 - (1 - clamp(value)) ** 3;
+      const STEP = 2.6;
+      const PATH = 'M-20 640 C300 700 900 690 1300 560';
+
+      $('title').textContent = tr(scene.title);
+      $('note').textContent = tr(['Namuna', 'Пример']);
+
+      const orbit = $('orbit');
+      orbit.innerHTML = `<path d="${PATH}" stroke="#39434a" stroke-width="3"/><path id="line" d="${PATH}" stroke="#8fd3ff" stroke-width="5"/>${scene.steps.map(() => '<circle r="11" fill="#060708" stroke-width="4"/>').join('')}<path id="star" fill="#fff" d="M0-34L6-6L34 0L6 6L0 34L-6 6L-34 0L-6-6Z"/>`;
+      const line = $('line');
+      const length = line.getTotalLength();
+      line.style.strokeDasharray = length;
+      const ratio = (step) => 0.12 + step * (0.76 / (scene.steps.length - 1));
+      const dots = [...orbit.querySelectorAll('circle')];
+      dots.forEach((dot, step) => {
+        const { x, y } = line.getPointAtLength(length * ratio(step));
+        dot.setAttribute('cx', x);
+        dot.setAttribute('cy', y);
+      });
+
+      const stars = Array.from({ length: 110 }, (_, i) => ({
+        x: (i * 397.3) % 1280,
+        y: (i * 211.7) % 720,
+        r: 0.6 + (i % 5) * 0.28,
+      }));
+
+      const VISUALS = {
+        room(_, k) {
+          let seats = '';
+          for (let i = 0; i < 12; i += 1) {
+            const x = 60 + (i % 4) * 120;
+            const y = 150 + Math.floor(i / 4) * 66;
+            seats += `<circle cx="${x + 30}" cy="${y + 20}" r="14" fill="#8d979e"/><rect x="${x + 8}" y="${y}" width="44" height="42" stroke="#8fd3ff" stroke-width="3" fill="none" opacity="${clamp(k * 14 - i)}"/>`;
+          }
+          return `<svg viewBox="0 0 540 340" fill="none"><rect x="20" y="10" width="500" height="326" stroke="#586168" stroke-width="3"/><rect x="190" y="34" width="160" height="74" stroke="#fff" stroke-width="4" stroke-dasharray="12 9" opacity="${clamp(k * 3 - 1.2)}"/>${seats}</svg>`;
+        },
+        rows: (rows, k) =>
+          rows
+            .map(
+              ([label, value, color], i) =>
+                `<div class="row" style="opacity:${ease(k * 4 - i * 0.7)}"><span>${tr(label)}</span>${color ? `<span class="dot" style="background:${color}"></span>` : `<i>${tr(value)}</i>`}</div>`,
+            )
+            .join(''),
+        chat: ({ message, buttons }, k) =>
+          `<div class="message" style="opacity:${ease(k * 3)}">${tr(message)}</div><div class="buttons" style="opacity:${ease(k * 3 - 0.8)}">${buttons.map((button, i) => `<span class="${i === 0 && k > 0.62 ? 'on' : ''}">${tr(button)}</span>`).join('')}</div>`,
+        bars: (values, k) =>
+          `<div class="bars">${values.map((value, i) => `<div style="height:${value * ease(k * 2.4 - i * 0.16)}%"></div>`).join('')}</div>`,
+      };
+
+      window.duration = scene.duration ?? scene.steps.length * STEP;
+
+      window.renderAt = async (time) => {
+        const stepTime = window.duration / scene.steps.length;
+        const step = Math.min(scene.steps.length - 1, Math.floor(time / stepTime));
+        const local = (time - step * stepTime) / stepTime;
+        const current = scene.steps[step];
+        const travel = ease(local * 4);
+        const from = step === 0 ? 0 : ratio(step - 1);
+        const position = length * (from + (ratio(step) - from) * travel);
+
+        const context = $('stars').getContext('2d');
+        context.clearRect(0, 0, 1280, 720);
+        for (const star of stars) {
+          context.globalAlpha = 0.25 + star.r * 0.25;
+          context.fillStyle = '#eef2f5';
+          context.beginPath();
+          context.arc((star.x + time * star.r * 9) % 1280, star.y, star.r, 0, 7);
+          context.fill();
+        }
+
+        line.style.strokeDashoffset = length - position;
+        const { x, y } = line.getPointAtLength(position);
+        $('star').setAttribute('transform', `translate(${x} ${y})`);
+        dots.forEach((dot, i) => dot.setAttribute('stroke', i <= step ? '#8fd3ff' : '#5d666d'));
+
+        const reveal = ease(local * 5);
+        const fade = 1 - clamp((local - 0.93) / 0.07);
+        $('text').style.cssText =
+          `opacity:${reveal * fade};transform:translateY(${(1 - reveal) * 18}px)`;
+        $('text').innerHTML =
+          `<b>${step + 1}/${scene.steps.length}</b><h1>${tr(current.title)}</h1><p>${tr(current.text)}</p>`;
+
+        const visual = $('visual');
+        if (scene.frames) {
+          visual.className = 'photo';
+          const frame = Math.min(
+            scene.frames,
+            1 + Math.floor((time / window.duration) * scene.frames),
+          );
+          if (!visual.firstChild) visual.append(new Image());
+          visual.firstChild.src = `/scripts/videos/.frames/${String(frame).padStart(4, '0')}.jpg`;
+          await visual.firstChild.decode();
+        } else {
+          visual.style.opacity = reveal * fade;
+          visual.innerHTML = VISUALS[current.visual](current.data, local);
+        }
+      };
+
+      await document.fonts.load('600 62px Saira');
+      await document.fonts.load("600 62px 'Exo 2'", 'Я');
+      await document.fonts.load('400 35px Onest', 'aЯ');
+      await document.fonts.ready;
+      await window.renderAt(0);
+      window.isReady = true;
+    </script>
+  </body>
+</html>
