@@ -6,5 +6,5 @@
  */
 export const CONTACTS = [
   { name: 'Asadbek Oybekov', shortName: 'Asadbek', telegram: 'asadjaannn', phone: '' },
-  { name: 'Alisher', shortName: 'Alisher', telegram: 'Alisher_Saidmurodov', phone: '' },
+  { name: 'Alisher Saidmurodov', shortName: 'Alisher', telegram: 'Alisher_Saidmurodov', phone: '' },
 ];
