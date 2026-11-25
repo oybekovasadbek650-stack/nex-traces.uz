@@ -1,7 +1,7 @@
 export const SITE_NAME = 'Nex Traces';
 
-/** Domen aniq bo'lgach yozing, masalan 'https://domen.uz'. Oxirida "/" bo'lmasin. */
-export const SITE_URL = '';
+/** Sayt manzili. O'z domeningiz ulansa, shu yerni almashtiring. Oxirida "/" bo'lmasin. */
+export const SITE_URL = 'https://nex-traces.vercel.app';
 
 export const META = {
   uz: {
