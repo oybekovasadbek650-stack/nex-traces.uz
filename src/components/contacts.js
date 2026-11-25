@@ -17,9 +17,9 @@ function contactCard({ name, telegram, phone }) {
   return `<div class="contact-card"><h3>${name}</h3>${telegramBlock}${phoneBlock}</div>`;
 }
 
-function dockButton({ name, telegram }) {
+function dockButton({ shortName, telegram }) {
   return `<a class="button" href="${telegramUrl(telegram)}" target="_blank" rel="noopener">
-    ${name}<small>Telegram</small>
+    ${shortName}<small>Telegram</small>
   </a>`;
 }
 
