@@ -23,6 +23,7 @@ function structuredData(locale) {
       '@type': 'Organization',
       name: SITE_NAME,
       description: META[locale].description,
+      sameAs: ['https://www.instagram.com/nex_traces'],
       ...url,
       ...logo,
     },
