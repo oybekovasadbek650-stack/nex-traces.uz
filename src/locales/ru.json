@@ -177,7 +177,6 @@
   "Kamaytirish": "Уменьшить",
   "Ko'paytirish": "Увеличить",
   "Taxminiy narx": "Примерная стоимость",
-  "Telegramda buyurtma berish": "Оставить заявку в Telegram",
   "Buyurtma matnini nusxalash": "Скопировать текст заявки",
   "Narxga nima kiradi": "Что входит в цену",
   "Kiradi": "Входит",
@@ -242,5 +241,13 @@
   "filial": "фил.",
   "Tarmoq chegirmasi {percent}%": "Скидка для сетей {percent}%",
   "Oylik to'lov yo'q. Aniq narx kameralarni ko'rib chiqqandan keyin belgilanadi.": "Без ежемесячной оплаты. Точная цена определяется после изучения камер.",
-  "{min} va undan ko'p filial bo'lsa, {percent}% chegirma. Oylik to'lov yo'q.": "При {min} и более филиалах — скидка {percent}%. Без ежемесячной оплаты."
+  "{min} va undan ko'p filial bo'lsa, {percent}% chegirma. Oylik to'lov yo'q.": "При {min} и более филиалах — скидка {percent}%. Без ежемесячной оплаты.",
+  "Ismingiz": "Ваше имя",
+  "Telefon raqamingiz": "Ваш номер телефона",
+  "Buyurtma yuborish": "Отправить заявку",
+  "yoki": "или",
+  "Telefon raqamini to'liq yozing, masalan +998 90 123 45 67.": "Введите номер полностью, например +998 90 123 45 67.",
+  "Yuborilmoqda...": "Отправляем...",
+  "Buyurtma qabul qilindi. Tez orada siz bilan bog'lanamiz.": "Заявка принята. Мы скоро с вами свяжемся.",
+  "Yuborib bo'lmadi. Iltimos, Telegram orqali yozing.": "Не удалось отправить. Пожалуйста, напишите в Telegram."
 }

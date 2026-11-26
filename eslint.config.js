@@ -8,5 +8,5 @@ export default [
     languageOptions: { globals: { ...globals.browser } },
     rules: { 'no-var': 'error', 'prefer-const': 'error', eqeqeq: 'error' },
   },
-  { files: ['*.config.js', 'scripts/**'], languageOptions: { globals: globals.node } },
+  { files: ['*.config.js', 'scripts/**', 'api/**'], languageOptions: { globals: globals.node } },
 ];

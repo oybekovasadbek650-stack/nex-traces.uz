@@ -715,3 +715,92 @@
   color: var(--color-ice);
   margin-bottom: 1rem;
 }
+
+/* Telefon raqami bilan buyurtma */
+.order-form {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.order-form__field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.order-form__field span {
+  font: 500 0.85rem var(--font-body);
+  color: var(--color-on-night-muted);
+}
+
+.order-form__field input {
+  min-height: 50px;
+  padding: 0 1rem;
+  border: 1px solid var(--color-night-border);
+  border-radius: 12px;
+  background: rgb(6 7 8 / 70%);
+  color: #fff;
+  font: 500 1.05rem var(--font-body);
+}
+
+.order-form__field input::placeholder {
+  color: #5d666d;
+}
+
+.order-form__field input:focus-visible {
+  outline: 2px solid var(--color-ice);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.order-form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.order-form .button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.order-form__status:empty {
+  display: none;
+}
+
+.order-form__status {
+  font-size: 0.92rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  background: rgb(143 211 255 / 8%);
+}
+
+.order-form__status[data-kind='success'] {
+  color: #7be0b0;
+  background: rgb(123 224 176 / 10%);
+}
+
+.order-form__status[data-kind='error'] {
+  color: #ffb4ab;
+  background: rgb(255 180 171 / 10%);
+}
+
+.calculator__or {
+  text-align: center;
+  font: 500 0.8rem var(--font-mono);
+  color: #6d777f;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.calculator__result .button {
+  width: 100%;
+}
+
+.order-form button.button {
+  border: 0;
+  font: 600 1rem var(--font-body);
+  cursor: pointer;
+}

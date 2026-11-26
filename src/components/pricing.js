@@ -6,7 +6,7 @@ import {
   NETWORK_DISCOUNT,
   PACKAGES,
 } from '../config/pricing.js';
-import { onLocaleChange, t } from '../i18n.js';
+import { getLocale, onLocaleChange, t } from '../i18n.js';
 import { prefersReducedMotion } from '../utils/motion.js';
 
 const formatNumber = (value) => Math.round(value).toLocaleString('ru-RU');
@@ -150,8 +150,11 @@ export function initPricing() {
     );
   };
 
+  let lastState = null;
+
   const render = () => {
     const state = readState(form);
+    lastState = state;
 
     for (const node of orbit.querySelectorAll('.orbit-node')) {
       node.classList.toggle('is-on', state.item.features.includes(Number(node.dataset.feature)));
@@ -216,6 +219,8 @@ export function initPricing() {
     }, 2500);
   });
 
+  initOrderForm(() => lastState);
+
   onLocaleChange(() => {
     renderStatic();
     shownTotal = readState(form).total;
@@ -223,4 +228,61 @@ export function initPricing() {
   });
   renderStatic();
   render();
+}
+
+/** O'zbekiston raqami: 9 yoki 12 ta raqam (998 bilan). */
+const isValidPhone = (value) => {
+  const digits = value.replace(/\D/g, '');
+  return /^(998)?\d{9}$/.test(digits);
+};
+
+/** Telefon raqami bilan buyurtma: /api/order orqali Nex Traces Telegram guruhiga boradi. */
+function initOrderForm(getState) {
+  const orderForm = document.getElementById('order-form');
+  const status = document.getElementById('order-status');
+  const submit = orderForm.querySelector('button[type="submit"]');
+
+  const showStatus = (text, kind) => {
+    status.textContent = t(text);
+    status.dataset.kind = kind;
+  };
+
+  orderForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = new FormData(orderForm);
+    const phone = String(data.get('phone') ?? '');
+    if (!isValidPhone(phone)) {
+      showStatus("Telefon raqamini to'liq yozing, masalan +998 90 123 45 67.", 'error');
+      orderForm.elements.phone.focus();
+      return;
+    }
+
+    const state = getState();
+    submit.disabled = true;
+    showStatus('Yuborilmoqda...', 'pending');
+    try {
+      const response = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          phone,
+          website: data.get('website'),
+          institution: state.institution,
+          package: state.item.name,
+          branches: state.branches,
+          cameras: state.cameras,
+          total: `${formatNumber(state.total)} so'm`,
+          locale: getLocale(),
+        }),
+      });
+      if (!response.ok) throw new Error(String(response.status));
+      orderForm.reset();
+      showStatus("Buyurtma qabul qilindi. Tez orada siz bilan bog'lanamiz.", 'success');
+    } catch {
+      showStatus("Yuborib bo'lmadi. Iltimos, Telegram orqali yozing.", 'error');
+    } finally {
+      submit.disabled = false;
+    }
+  });
 }

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <title>Nex Traces promo</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500..700&family=JetBrains+Mono:wght@400;600&family=Onest:wght@400;500;600&family=Saira:wdth,wght@100..125,400..700&display=swap"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        width: 540px;
+        height: 960px;
+        overflow: hidden;
+        position: relative;
+        background: #060708;
+        color: #eceff1;
+        font-family: Onest, sans-serif;
+      }
+      #bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(420px 320px at 85% 8%, rgb(47 149 207 / 22%), transparent 70%),
+          radial-gradient(380px 300px at 10% 92%, rgb(143 211 255 / 10%), transparent 70%);
+      }
+      #sky {
+        position: absolute;
+        inset: 0;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      /* Ochilish */
+      #title {
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 14px;
+        text-align: center;
+      }
+      #title img {
+        width: 210px;
+      }
+      #title b,
+      #end b {
+        font:
+          700 30px Saira,
+          sans-serif;
+        letter-spacing: 0.16em;
+      }
+      #title span,
+      #end .sub {
+        font:
+          600 13px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #8fd3ff;
+      }
+      /* Yozuv */
+      #caption {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 56px;
+        height: 120px;
+      }
+      #caption p {
+        font:
+          600 12px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #8fd3ff;
+      }
+      #caption h1 {
+        margin-top: 10px;
+        font:
+          700 33px/1.08 Saira,
+          sans-serif;
+        letter-spacing: -0.01em;
+      }
+      #caption h1 em {
+        font-style: normal;
+        color: #8fd3ff;
+      }
+      /* Telefon */
+      #phone {
+        position: absolute;
+        left: 67px;
+        top: 196px;
+        width: 406px;
+        height: 696px;
+        padding: 8px;
+        border-radius: 46px;
+        background: linear-gradient(160deg, #2b3136, #0e1113 40%, #1b2024);
+        box-shadow:
+          0 0 0 1px #3a4147,
+          0 40px 120px -30px rgb(143 211 255 / 45%);
+      }
+      #screen {
+        position: relative;
+        width: 390px;
+        height: 680px;
+        border-radius: 38px;
+        overflow: hidden;
+        background: #060708;
+      }
+      #screen iframe {
+        position: absolute;
+        left: 0;
+        top: 34px;
+        width: 390px;
+        height: 646px;
+        border: 0;
+      }
+      #notch {
+        position: absolute;
+        left: 50%;
+        top: 9px;
+        width: 86px;
+        height: 22px;
+        translate: -50% 0;
+        border-radius: 14px;
+        background: #000;
+        z-index: 3;
+      }
+      #url {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 26px;
+        text-align: center;
+        font:
+          500 12px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.08em;
+        color: #a9b2b9;
+      }
+      .tap {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        margin: -28px 0 0 -28px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        background: rgb(143 211 255 / 35%);
+        box-shadow: 0 0 30px rgb(143 211 255 / 80%);
+        pointer-events: none;
+        opacity: 0;
+        z-index: 5;
+      }
+      /* Yakun */
+      #end {
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        text-align: center;
+        gap: 12px;
+      }
+      #end img {
+        width: 170px;
+        margin-bottom: 6px;
+      }
+      #end h2 {
+        margin-top: 22px;
+        font:
+          700 30px/1.15 Saira,
+          sans-serif;
+      }
+      #end h2 em {
+        font-style: normal;
+        color: #8fd3ff;
+      }
+      #end ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 22px;
+        display: grid;
+        gap: 12px;
+      }
+      #end li {
+        font:
+          500 17px Onest,
+          sans-serif;
+        padding: 12px 22px;
+        border: 1px solid #2b3136;
+        border-radius: 999px;
+        background: rgb(14 17 19 / 80%);
+      }
+      #end li small {
+        display: block;
+        font:
+          600 10px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #8fd3ff;
+        margin-bottom: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bg"></div>
+    <svg id="sky" viewBox="0 0 540 960"></svg>
+
+    <div class="layer" id="title">
+      <img src="/src/assets/logo/mark.svg" alt="" />
+      <b>NEX TRACES</b>
+      <span>AI video nazorat</span>
+    </div>
+
+    <div class="layer" id="stage">
+      <div id="caption">
+        <p></p>
+        <h1></h1>
+      </div>
+      <div id="phone">
+        <div id="screen">
+          <div id="notch"></div>
+          <iframe id="site-a" src="/#video"></iframe>
+          <iframe id="site-b" src="/narxlar/#video"></iframe>
+        </div>
+      </div>
+      <p id="url">nex-traces.vercel.app</p>
+      <div class="tap" id="tap"></div>
+    </div>
+
+    <div class="layer" id="end">
+      <img src="/src/assets/logo/mark.svg" alt="" />
+      <b>NEX TRACES</b>
+      <span class="sub">AI video nazorat</span>
+      <h2>Kameralaringizni<br /><em>aqlli nazoratga</em> aylantiring</h2>
+      <ul>
+        <li><small>Sayt</small>nex-traces.vercel.app</li>
+        <li><small>Instagram</small>@nex_traces</li>
+        <li><small>Telegram</small>@asadjaannn</li>
+      </ul>
+    </div>
+
+    <script type="module" src="./promo.js"></script>
+  </body>
+</html>

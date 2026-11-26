@@ -156,8 +156,41 @@
               <p class="calculator__sub">bir martalik to'lov</p>
               <ul class="calculator__lines" id="result-lines"></ul>
               <p class="calculator__note" id="calculator-note"></p>
-              <a class="button" id="order-link" href="#" target="_blank" rel="noopener"
-                >Telegramda buyurtma berish</a
+              <form class="order-form" id="order-form" novalidate>
+                <label class="order-form__field">
+                  <span>Ismingiz</span>
+                  <input type="text" name="name" autocomplete="name" maxlength="80" />
+                </label>
+                <label class="order-form__field">
+                  <span>Telefon raqamingiz</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    placeholder="+998 90 123 45 67"
+                    required
+                  />
+                </label>
+                <input
+                  class="order-form__trap"
+                  type="text"
+                  name="website"
+                  tabindex="-1"
+                  autocomplete="off"
+                  aria-hidden="true"
+                />
+                <button class="button" type="submit">Buyurtma yuborish</button>
+                <p class="order-form__status" id="order-status" role="status"></p>
+              </form>
+              <p class="calculator__or">yoki</p>
+              <a
+                class="button button--secondary"
+                id="order-link"
+                href="#"
+                target="_blank"
+                rel="noopener"
+                >Telegramda yozish</a
               >
               <button type="button" class="calculator__copy" id="order-copy">
                 Buyurtma matnini nusxalash

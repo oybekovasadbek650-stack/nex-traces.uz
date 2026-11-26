@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <title>Nex Traces promo 2</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500..700&family=JetBrains+Mono:wght@400;600&family=Onest:wght@400;500;600&family=Saira:wdth,wght@100..125,400..800&display=swap"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 540px;
+        height: 960px;
+        overflow: hidden;
+        position: relative;
+        background: #050607;
+        color: #eceff1;
+        font-family: Onest, sans-serif;
+      }
+      #world {
+        position: absolute;
+        inset: 0;
+      }
+      #bg {
+        position: absolute;
+        inset: -20px;
+        background:
+          radial-gradient(420px 320px at 85% 8%, rgb(47 149 207 / 20%), transparent 70%),
+          radial-gradient(380px 300px at 10% 92%, rgb(143 211 255 / 9%), transparent 70%);
+      }
+      #sky {
+        position: absolute;
+        inset: 0;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+      }
+      .mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .kicker {
+        font:
+          600 12px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #8fd3ff;
+      }
+      .slam {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font:
+          800 50px/1.02 Saira,
+          sans-serif;
+        letter-spacing: -0.01em;
+        opacity: 0;
+      }
+      .slam em,
+      h2 em {
+        font-style: normal;
+        color: #8fd3ff;
+      }
+      .tag {
+        position: absolute;
+        font:
+          600 10px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #a9b2b9;
+        border: 1px solid #3a4147;
+        border-radius: 999px;
+        padding: 4px 9px;
+        background: rgb(5 6 7 / 70%);
+      }
+
+      /* 1. Kameralar to'ri */
+      #grid {
+        position: absolute;
+        left: 22px;
+        top: 360px;
+        width: 496px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .tile {
+        position: relative;
+        height: 112px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: linear-gradient(160deg, #1a2026, #0c0f12);
+        border: 1px solid #2b3136;
+        opacity: 0;
+      }
+      .tile svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .tile b {
+        position: absolute;
+        left: 7px;
+        top: 6px;
+        font:
+          600 8px 'JetBrains Mono',
+          monospace;
+        color: #cfd8de;
+        letter-spacing: 0.08em;
+      }
+      .tile i {
+        position: absolute;
+        right: 7px;
+        top: 7px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ff4d4d;
+      }
+      .tile span {
+        position: absolute;
+        right: 7px;
+        bottom: 5px;
+        font:
+          500 7px 'JetBrains Mono',
+          monospace;
+        color: #8a949b;
+      }
+
+      /* 2. Skaner */
+      #cam {
+        position: absolute;
+        left: 22px;
+        top: 250px;
+        width: 496px;
+        height: 350px;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid #2b3136;
+        background: linear-gradient(160deg, #1a2026, #0b0e11);
+      }
+      #cam > svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #scanline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background: linear-gradient(to bottom, transparent, rgb(143 211 255 / 28%) 85%, #8fd3ff);
+        mix-blend-mode: screen;
+      }
+      #cam-hud {
+        position: absolute;
+        left: 12px;
+        top: 10px;
+        font:
+          600 10px 'JetBrains Mono',
+          monospace;
+        color: #cfd8de;
+        letter-spacing: 0.08em;
+      }
+      #alert {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 640px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 16px;
+        border-radius: 14px;
+        border: 1px solid rgb(255 176 64 / 60%);
+        background: rgb(255 176 64 / 10%);
+        opacity: 0;
+      }
+      #alert b {
+        font:
+          700 22px Saira,
+          sans-serif;
+        color: #ffb040;
+      }
+      #alert span {
+        font:
+          500 13px Onest,
+          sans-serif;
+        color: #eceff1;
+      }
+
+      /* 3. Telegram */
+      #tg {
+        position: absolute;
+        left: 95px;
+        top: 250px;
+        width: 350px;
+        height: 610px;
+        border-radius: 42px;
+        padding: 8px;
+        background: linear-gradient(160deg, #2b3136, #0e1113 40%, #1b2024);
+        box-shadow:
+          0 0 0 1px #3a4147,
+          0 40px 120px -30px rgb(143 211 255 / 45%);
+      }
+      #tg-screen {
+        position: relative;
+        height: 100%;
+        border-radius: 34px;
+        overflow: hidden;
+        background: #0f1519;
+      }
+      #tg-head {
+        padding: 44px 16px 12px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        background: #141c22;
+        border-bottom: 1px solid #1f2a31;
+      }
+      #tg-head img {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #060708;
+        padding: 6px;
+      }
+      #tg-head b {
+        display: block;
+        font: 600 15px Onest;
+      }
+      #tg-head span {
+        font: 400 12px Onest;
+        color: #7f8b93;
+      }
+      #tg-msg {
+        position: absolute;
+        left: 12px;
+        right: 34px;
+        top: 120px;
+        border-radius: 16px 16px 16px 4px;
+        background: #1b252d;
+        overflow: hidden;
+        opacity: 0;
+      }
+      #tg-msg svg {
+        display: block;
+        width: 100%;
+        height: 150px;
+        background: linear-gradient(160deg, #1a2026, #0b0e11);
+      }
+      #tg-msg p {
+        padding: 10px 12px 4px;
+        font: 400 13.5px/1.45 Onest;
+      }
+      #tg-msg p b {
+        color: #ffb040;
+      }
+      #tg-msg small {
+        display: block;
+        padding: 0 12px 9px;
+        text-align: right;
+        font: 400 10.5px Onest;
+        color: #7f8b93;
+      }
+      #tg-buttons {
+        position: absolute;
+        left: 12px;
+        right: 34px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        opacity: 0;
+      }
+      #tg-buttons div {
+        padding: 11px 0;
+        text-align: center;
+        border-radius: 10px;
+        background: #243039;
+        font: 600 13.5px Onest;
+      }
+      #tg-done {
+        position: absolute;
+        left: 12px;
+        right: 34px;
+        padding: 11px 0;
+        text-align: center;
+        border-radius: 10px;
+        background: rgb(123 224 176 / 16%);
+        color: #7be0b0;
+        font: 600 13.5px Onest;
+        opacity: 0;
+      }
+
+      /* 4. Hisobot */
+      #report {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        top: 330px;
+        padding: 22px 22px 18px;
+        border-radius: 20px;
+        border: 1px solid rgb(143 211 255 / 28%);
+        background:
+          radial-gradient(300px 160px at 100% 0%, rgb(143 211 255 / 14%), transparent 70%),
+          rgb(12 15 17 / 90%);
+      }
+      #bars {
+        margin-top: 18px;
+        height: 200px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 12px;
+        align-items: end;
+      }
+      #bars div {
+        position: relative;
+        border-radius: 8px 8px 3px 3px;
+        background: linear-gradient(to top, #2f95cf, #8fd3ff);
+        transform-origin: bottom;
+      }
+      #bars div::after {
+        content: attr(data-day);
+        position: absolute;
+        bottom: -22px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font:
+          500 10px 'JetBrains Mono',
+          monospace;
+        color: #7f8b93;
+      }
+      #stats {
+        margin-top: 38px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      #stats div {
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #2b3136;
+        text-align: center;
+        opacity: 0;
+      }
+      #stats b {
+        display: block;
+        font: 800 30px Saira;
+      }
+      #stats span {
+        font: 500 11px Onest;
+        color: #a9b2b9;
+      }
+
+      /* 5. Kimlar uchun */
+      .who {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        opacity: 0;
+      }
+      .who small {
+        display: block;
+        font:
+          600 13px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.2em;
+        color: #8fd3ff;
+      }
+      .who b {
+        display: block;
+        font:
+          800 78px/1 Saira,
+          sans-serif;
+        letter-spacing: -0.02em;
+      }
+
+      /* 6. Sayt */
+      #site-wrap {
+        position: absolute;
+        inset: 0;
+        perspective: 1200px;
+      }
+      #phone {
+        position: absolute;
+        left: 75px;
+        top: 250px;
+        width: 390px;
+        height: 670px;
+        padding: 8px;
+        border-radius: 46px;
+        background: linear-gradient(160deg, #2b3136, #0e1113 40%, #1b2024);
+        box-shadow:
+          0 0 0 1px #3a4147,
+          0 50px 140px -30px rgb(143 211 255 / 55%);
+        transform-style: preserve-3d;
+      }
+      #screen {
+        position: relative;
+        width: 374px;
+        height: 654px;
+        border-radius: 38px;
+        overflow: hidden;
+        background: #060708;
+      }
+      #screen iframe {
+        position: absolute;
+        left: 0;
+        top: 30px;
+        width: 390px;
+        height: 700px;
+        border: 0;
+        transform-origin: 0 0;
+        transform: scale(0.959);
+      }
+      #notch {
+        position: absolute;
+        left: 50%;
+        top: 8px;
+        width: 84px;
+        height: 22px;
+        translate: -50% 0;
+        border-radius: 14px;
+        background: #000;
+        z-index: 3;
+      }
+      #stamp {
+        position: absolute;
+        right: 34px;
+        top: 560px;
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        background: #8fd3ff;
+        color: #06202f;
+        box-shadow: 0 0 60px rgb(143 211 255 / 70%);
+        opacity: 0;
+        z-index: 6;
+      }
+      #stamp b {
+        font: 800 40px/1 Saira;
+      }
+      #stamp span {
+        font:
+          700 11px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.08em;
+      }
+      .head {
+        position: absolute;
+        left: 36px;
+        right: 36px;
+        top: 70px;
+      }
+      .head h2 {
+        margin-top: 10px;
+        font:
+          800 38px/1.04 Saira,
+          sans-serif;
+        letter-spacing: -0.01em;
+      }
+      .tap {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        margin: -28px 0 0 -28px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        background: rgb(143 211 255 / 35%);
+        box-shadow: 0 0 30px rgb(143 211 255 / 80%);
+        opacity: 0;
+        z-index: 8;
+      }
+
+      /* 7. Yakun */
+      #end {
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        text-align: center;
+        gap: 10px;
+      }
+      #end-logo {
+        position: relative;
+        width: 230px;
+        height: 230px;
+        display: grid;
+        place-items: center;
+      }
+      #end-logo svg {
+        position: absolute;
+        inset: 0;
+      }
+      #end-logo img {
+        width: 160px;
+      }
+      #end b {
+        margin-top: 6px;
+        font: 700 30px Saira;
+        letter-spacing: 0.16em;
+      }
+      #end h3 {
+        margin-top: 14px;
+        font: 700 27px/1.15 Saira;
+      }
+      #end h3 em {
+        font-style: normal;
+        color: #8fd3ff;
+      }
+      #cta {
+        margin-top: 22px;
+        padding: 15px 26px;
+        border-radius: 999px;
+        background: #8fd3ff;
+        color: #06202f;
+        font: 700 17px Onest;
+      }
+      #end .socials {
+        margin-top: 14px;
+        font:
+          500 14px 'JetBrains Mono',
+          monospace;
+        color: #a9b2b9;
+      }
+      #flash {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 20;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="world">
+      <div id="bg"></div>
+      <svg id="sky" viewBox="0 0 540 960"></svg>
+
+      <!-- 1. Kameralar -->
+      <section class="scene" id="s1">
+        <p class="slam" id="w1" style="top: 120px">16 ta <em>kamera.</em></p>
+        <p class="slam" id="w2" style="top: 120px">1 ta <em>operator.</em></p>
+        <p class="slam" id="w3" style="top: 96px">Hammasini<br /><em>kim kuzatadi?</em></p>
+        <div id="grid"></div>
+        <span class="tag" style="left: 22px; top: 760px">Namuna</span>
+      </section>
+
+      <!-- 2. AI skaner -->
+      <section class="scene" id="s2">
+        <div class="head">
+          <p class="kicker">Nex Traces AI</p>
+          <h2>AI <em>o'zi topadi.</em></h2>
+        </div>
+        <div id="cam">
+          <svg id="cam-svg" viewBox="0 0 496 350"></svg>
+          <div id="scanline"></div>
+          <p id="cam-hud">CAM 05 · 3-B SINF · <span id="cam-time"></span></p>
+          <span class="tag" style="right: 10px; top: 8px">Namuna</span>
+        </div>
+        <div id="alert">
+          <b>A1</b><span>Sinf o'qituvchisiz qoldi<br />Xavf darajasi: o'rta</span>
+        </div>
+      </section>
+
+      <!-- 3. Telegram -->
+      <section class="scene" id="s3">
+        <div class="head">
+          <p class="kicker">Telegram</p>
+          <h2>Siz faqat <em>qaror qilasiz.</em></h2>
+        </div>
+        <div id="tg">
+          <div id="tg-screen">
+            <div id="tg-head">
+              <img src="/src/assets/logo/mark.svg" alt="" />
+              <div><b>Nex Traces AI</b><span>bot</span></div>
+            </div>
+            <div id="tg-msg">
+              <svg id="tg-thumb" viewBox="0 0 496 300"></svg>
+              <p>⚠️ <b>A1 holat</b><br />3-B sinf o'qituvchisiz qoldi<br />CAM 05 · 10:42</p>
+              <small>10:42</small>
+            </div>
+            <div id="tg-buttons">
+              <div id="tg-yes">✓ To'g'ri</div>
+              <div>✗ Xato</div>
+            </div>
+            <div id="tg-done">✓ Tasdiqlandi · Mas'ul: Direktor</div>
+            <span class="tag" style="right: 14px; bottom: 14px">Namuna</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Hisobot -->
+      <section class="scene" id="s4">
+        <div class="head">
+          <p class="kicker">Haftalik hisobot</p>
+          <h2>Hisobot <em>o'zi tayyor.</em></h2>
+        </div>
+        <div id="report">
+          <p class="kicker">Hafta · holatlar</p>
+          <div id="bars"></div>
+          <div id="stats">
+            <div><b id="st1">0</b><span>holat</span></div>
+            <div><b id="st2">0</b><span>tasdiqlandi</span></div>
+            <div><b id="st3">0</b><span>rad etildi</span></div>
+          </div>
+        </div>
+        <span class="tag" style="left: 30px; top: 820px">Namuna</span>
+      </section>
+
+      <!-- 5. Kimlar uchun -->
+      <section class="scene" id="s5">
+        <div class="who" id="who1" style="top: 250px"><small>01</small><b>Bog'cha</b></div>
+        <div class="who" id="who2" style="top: 410px"><small>02</small><b>Maktab</b></div>
+        <div class="who" id="who3" style="top: 570px"><small>03</small><b>Akademiya</b></div>
+        <p class="slam" id="who-for" style="top: 760px; font-size: 34px">
+          uchun <em>bitta tizim.</em>
+        </p>
+      </section>
+
+      <!-- 6. Sayt -->
+      <section class="scene" id="s6">
+        <div class="head" style="top: 64px">
+          <p class="kicker" id="s6-kicker">Narxlar</p>
+          <h2 id="s6-title"></h2>
+        </div>
+        <div id="site-wrap">
+          <div id="phone">
+            <div id="screen">
+              <div id="notch"></div>
+              <iframe id="site" src="/narxlar/#video"></iframe>
+            </div>
+          </div>
+        </div>
+        <div id="stamp"><b>−15%</b><span>TARMOQQA</span></div>
+        <div class="tap" id="tap"></div>
+      </section>
+
+      <!-- 7. Yakun -->
+      <section class="scene" id="end">
+        <div id="end-logo">
+          <svg viewBox="0 0 230 230">
+            <circle
+              id="end-ring"
+              cx="115"
+              cy="115"
+              r="108"
+              fill="none"
+              stroke="#8fd3ff"
+              stroke-width="2"
+              stroke-dasharray="679"
+              stroke-dashoffset="679"
+              transform="rotate(-90 115 115)"
+            />
+            <circle id="end-dot" r="5" fill="#fff" />
+          </svg>
+          <img src="/src/assets/logo/mark.svg" alt="" />
+        </div>
+        <b>NEX TRACES</b>
+        <h3>Kameralaringizni<br /><em>aqlli nazoratga</em> aylantiring</h3>
+        <div id="cta">nex-traces.vercel.app/narxlar</div>
+        <p class="socials">Instagram @nex_traces · Telegram @asadjaannn</p>
+      </section>
+    </div>
+    <div id="flash"></div>
+
+    <script type="module" src="./promo2.js"></script>
+  </body>
+</html>
