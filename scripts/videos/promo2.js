@@ -3,7 +3,9 @@
  * Ovoz vaqtlari scripts/videos/music.py dagi bilan bir xil bo'lishi kerak.
  */
 const FPS = 30;
-const DURATION = 32;
+const DURATION = 36;
+/** Yakuniy sahna boshlanishi. */
+const END = 31.2;
 const $ = (selector) => document.querySelector(selector);
 
 const clamp01 = (value) => Math.min(1, Math.max(0, value));
@@ -110,8 +112,8 @@ const SCENES = [
   ['#s3', 8, 12],
   ['#s4', 12, 16],
   ['#s5', 16, 20],
-  ['#s6', 20, 27.1],
-  ['#end', 27, DURATION + 1],
+  ['#s6', 20, END + 0.1],
+  ['#end', END, DURATION + 1],
 ];
 
 function sceneVisibility(t) {
@@ -252,16 +254,28 @@ const SCROLL = [
   [22.6, 23.15, '.package--recommended', '#calculator-form'],
   [24.6, 25.2, '#calculator-form', '#system-orbit'],
   [25.4, 25.95, '#system-orbit', '.calculator__result'],
+  [26.7, 27.4, '.calculator__result', ['#order-form', 150]],
 ];
 const TAPS = [
   [23.4, '#package-options .choice:nth-child(3)'],
   [23.9, '.number-field:first-child [data-step="1"]'],
   [24.3, '.number-field:first-child [data-step="1"]'],
 ];
+/* Forma: bosish (klik qilinmaydi), keyin yozish. */
+const FORM_TAPS = [
+  [27.6, '#order-form [name="name"]'],
+  [28.6, '#order-form [name="phone"]'],
+  [29.9, '#order-form button[type="submit"]'],
+];
+const TYPING = [
+  [27.75, 28.35, '#order-form [name="name"]', 'Dilnoza'],
+  [28.75, 29.65, '#order-form [name="phone"]', '+998 90 123 45 67'],
+];
 const tapped = new Set();
 
 function scrollSite(t) {
-  const resolve = (value) => (typeof value === 'number' ? value : siteY(value));
+  const resolve = (value) =>
+    typeof value === 'number' ? value : Array.isArray(value) ? siteY(...value) : siteY(value);
   let y = null;
   for (const [start, end, from, to] of SCROLL) {
     if (t < start) break;
@@ -290,6 +304,8 @@ const TITLES = [
   [20.0, "Bir marta <em>to'laysiz.</em>"],
   [22.0, "Oylik to'lov <em>yo'q.</em>"],
   [24.0, "Narxni <em>o'zingiz</em> hisoblang."],
+  [26.7, 'Buyurtma <em>bir bosishda.</em>'],
+  [30.3, "Biz <em>darhol</em> bog'lanamiz."],
 ];
 
 function scene6(t) {
@@ -320,36 +336,55 @@ function scene6(t) {
     if (t >= time - 0.25 && t < time + 0.6) showTap(t, time, siteRect(selector));
   }
 
+  const doc = site.contentWindow.document;
+  for (const [time, selector] of FORM_TAPS) {
+    if (t >= time - 0.25 && t < time + 0.6) showTap(t, time, siteRect(selector));
+  }
+  for (const [start, end, selector, text] of TYPING) {
+    if (t < start) continue;
+    doc.querySelector(selector).value = text.slice(0, Math.round(seg(t, start, end) * text.length));
+  }
+  const status = doc.getElementById('order-status');
+  if (t >= 30.05 && !status.dataset.kind) {
+    status.textContent = "Buyurtma qabul qilindi. Tez orada siz bilan bog'lanamiz.";
+    status.dataset.kind = 'success';
+  }
+  const note = backOut(seg(t, 30.3, 30.75));
+  set($('#notify'), {
+    opacity: t >= 30.3 ? seg(t, 30.3, 30.4) : 0,
+    transform: `translateY(${mix(-140, 0, note)}px)`,
+  });
+
   const stamp = seg(t, 26.1, 26.4);
   set($('#stamp'), {
-    opacity: t >= 26.1 ? 1 : 0,
+    opacity: t >= 26.1 && t < 26.8 ? 1 - seg(t, 26.6, 26.8) : 0,
     transform: `scale(${mix(2.4, 1, backOut(stamp))}) rotate(${mix(-30, -12, stamp)}deg)`,
   });
 }
 
 function sceneEnd(t) {
-  const draw = easeInOut(seg(t, 27.2, 28.4));
+  const draw = easeInOut(seg(t, END + 0.2, END + 1.4));
   $('#end-ring').setAttribute('stroke-dashoffset', String(679 * (1 - draw)));
   const angle = -Math.PI / 2 + draw * Math.PI * 2;
   $('#end-dot').setAttribute('cx', String(115 + Math.cos(angle) * 108));
   $('#end-dot').setAttribute('cy', String(115 + Math.sin(angle) * 108));
   set($('#end-logo img'), {
-    transform: `scale(${mix(0.7, 1, backOut(seg(t, 27.1, 27.7)))})`,
-    opacity: seg(t, 27.1, 27.3),
+    transform: `scale(${mix(0.7, 1, backOut(seg(t, END + 0.1, END + 0.7)))})`,
+    opacity: seg(t, END + 0.1, END + 0.3),
   });
   const parts = ['#end b', '#end h3', '#cta', '#end .socials'];
   parts.forEach((selector, index) => {
-    const show = easeOut(seg(t, 27.8 + index * 0.35, 28.2 + index * 0.35));
+    const show = easeOut(seg(t, END + 0.8 + index * 0.35, END + 1.2 + index * 0.35));
     set($(selector), { opacity: show, transform: `translateY(${mix(18, 0, show)}px)` });
   });
-  const beat = t > 29 ? Math.exp(-((t - 29) % 0.5) * 9) : 0;
+  const beat = t > END + 2 ? Math.exp(-((t - END - 2) % 0.5) * 9) : 0;
   $('#cta').style.boxShadow = `0 0 ${20 + beat * 40}px rgb(143 211 255 / ${0.35 + beat * 0.4})`;
-  $('#world').style.opacity = String(1 - seg(t, 31.5, 32));
+  $('#world').style.opacity = String(1 - seg(t, DURATION - 0.5, DURATION));
 }
 
 /* ---------- Umumiy: ritm, chaqnash, fon ---------- */
 function kickPulse(t) {
-  if (t < 4 || t > 27) return 0;
+  if (t < 4 || t > END) return 0;
   if (t >= 16 && t < 20) {
     const hits = [16, 17, 18].filter((hit) => t >= hit);
     return hits.length ? Math.exp(-(t - hits.at(-1)) * 7) * 0.02 : 0;
@@ -373,12 +408,12 @@ window.renderAt = (t) => {
   if (t >= 7.9 && t < 12.1) scene3(t);
   if (t >= 11.9 && t < 16.1) scene4(t);
   if (t >= 15.9 && t < 20.1) scene5(t);
-  if (t >= 19.9 && t < 27.2) scene6(t);
-  if (t >= 26.9) sceneEnd(t);
+  if (t >= 19.9 && t < END + 0.2) scene6(t);
+  if (t >= END - 0.1) sceneEnd(t);
 
   const flash = Math.max(
     ...[4, 20].map((hit) => (t >= hit ? 1 - seg(t, hit, hit + 0.3) : 0) * 0.85),
-    ...[8, 12, 16, 27].map((hit) => (t >= hit ? 1 - seg(t, hit, hit + 0.18) : 0) * 0.25),
+    ...[8, 12, 16, END].map((hit) => (t >= hit ? 1 - seg(t, hit, hit + 0.18) : 0) * 0.25),
   );
   $('#flash').style.opacity = flash;
 };

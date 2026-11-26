@@ -538,6 +538,46 @@
           monospace;
         color: #a9b2b9;
       }
+      #notify {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        top: 196px;
+        display: flex;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 22px;
+        background: rgb(30 37 43 / 92%);
+        border: 1px solid rgb(143 211 255 / 30%);
+        box-shadow:
+          0 24px 60px -10px rgb(0 0 0 / 70%),
+          0 0 40px -10px rgb(143 211 255 / 40%);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        z-index: 9;
+      }
+      #notify img {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: #060708;
+        padding: 6px;
+        flex: none;
+      }
+      #notify b {
+        display: block;
+        font: 600 14px Onest;
+      }
+      #notify small {
+        float: right;
+        font: 400 11px Onest;
+        color: #8a949b;
+      }
+      #notify p {
+        margin-top: 3px;
+        font: 400 13px/1.4 Onest;
+        color: #cfd8de;
+      }
       #flash {
         position: absolute;
         inset: 0;
@@ -649,6 +689,13 @@
           </div>
         </div>
         <div id="stamp"><b>−15%</b><span>TARMOQQA</span></div>
+        <div id="notify">
+          <img src="/src/assets/logo/mark.svg" alt="" />
+          <div>
+            <b>Nex Traces Buyurtmalar <small>hozir</small></b>
+            <p>🛒 Yangi buyurtma · To'liq · 3 filial<br />📞 +998 90 123 45 67</p>
+          </div>
+        </div>
         <div class="tap" id="tap"></div>
       </section>
 

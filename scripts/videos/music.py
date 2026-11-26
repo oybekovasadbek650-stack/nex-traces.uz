@@ -1,5 +1,5 @@
 """
-promo2 videosi uchun original musiqa va effektlar (32 s, 120 BPM, A minor).
+promo2 videosi uchun original musiqa va effektlar (36 s, 120 BPM, A minor).
 Ishlatish: python scripts/videos/music.py chiqish.wav
 Vaqtlar scripts/videos/promo2.js dagi sahnalar bilan bir xil.
 """
@@ -9,7 +9,8 @@ import wave
 import numpy as np
 
 SR = 44100
-DUR = 32.0
+DUR = 36.0
+END = 31.2  # yakuniy sahna (promo2.js dagi END)
 BEAT = 0.5
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
@@ -246,37 +247,42 @@ while roll < 20:
     add(clap(), roll, 0.35 + (roll - 19) * 0.5)
     roll += 0.125 if roll < 19.5 else 0.0625
 
-# 20-27: kuchli qism
+# 20-END: kuchli qism
 add(boom(), 20.0, 1.0)
-for time in np.arange(20, 27, BEAT):
+for time in np.arange(20, END, BEAT):
     add(kick(), time, 0.95)
-bass_layer(20, 27, 0.33)
-pad_layer(20, 27, 0.05, 2200)
-for time in np.arange(20, 27, BEAT / 2):
+bass_layer(20, END, 0.33)
+pad_layer(20, END, 0.05, 2200)
+for time in np.arange(20, END, BEAT / 2):
     add(hat(open_hat=(time * 4) % 2 == 1), time, 0.8, pan=0.3 if (time * 4) % 2 else -0.3)
-for time in np.arange(20, 27, 1.0):
+for time in np.arange(20, END - 0.5, 1.0):
     add(clap(), time + BEAT, 1.0)
-arp_layer(20, 27, 1.0)
+arp_layer(20, END, 1.0)
 
-# 27-32: yakun
-add(boom(), 27.0, 0.9)
-pad_layer(27, 32, 0.06, 1200)
-arp_layer(27, 29, 0.5)
+# END-36: yakun
+add(boom(), END, 0.9)
+pad_layer(END, DUR, 0.06, 1200)
+arp_layer(END, END + 2, 0.5)
 
 # ---- Effektlar (video bilan bir vaqtda) ----
-for time in (4.0, 8.0, 12.0, 16.0, 27.0):
+for time in (4.0, 8.0, 12.0, 16.0, 26.7, END):
     add(whoosh(), time - 0.35, 0.9)
 add(sweep(1.6, 400, 1400, 0.045), 4.4)
 add(beep(880), 6.0)
 add(beep(880), 6.22)
 add(ding(), 8.5)
-for time in (10.0, 23.4, 23.9, 24.3):
+for time in (10.0, 23.4, 23.9, 24.3, 27.6, 28.6, 29.9):
     add(tick(), time, 0.7)
+# Forma to'ldirilayotganda klaviatura tovushi
+for start, end, count in ((27.75, 28.35, 7), (28.75, 29.65, 17)):
+    for k in range(count):
+        add(tick(), start + (end - start) * k / count, 0.22, pan=0.2 if k % 2 else -0.2)
+add(ding(), 30.3, 1.1)
 add(boom(), 26.1, 0.45)
 add(clap(), 26.1, 0.8)
 
 # ---- Miks ----
-kick_times = [t for t in np.arange(4, 27, BEAT) if not (16 <= t < 20)]
+kick_times = [t for t in np.arange(4, END, BEAT) if not (16 <= t < 20)]
 duck = np.ones(N)
 for time in kick_times:
     i = int(time * SR)
