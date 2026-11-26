@@ -50,6 +50,14 @@
   padding-block: clamp(2rem, 5vw, 4.5rem) clamp(2rem, 4vw, 3rem);
 }
 
+.hero__content .hero__eyebrow {
+  font: 600 0.85rem/1.4 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ice);
+  margin: 0 0 1rem;
+}
+
 .hero__content p {
   font-size: 1.15rem;
   color: var(--color-on-night-muted);

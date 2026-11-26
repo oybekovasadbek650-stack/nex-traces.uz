@@ -108,7 +108,7 @@ export const SCENES = {
     ],
   },
   substitute: {
-    title: ["O'rinbosar tizimi", 'Система замен'],
+    title: ['Dars almashtirish', 'Замена уроков'],
     duration: 12,
     frames: 300,
     steps: [
@@ -117,7 +117,7 @@ export const SCENES = {
         text: ['Kun holati bitta ekranda', 'Весь день на одном экране'],
       },
       {
-        title: ["O'rinbosar tasdiqlanadi", 'Замена подтверждена'],
+        title: ['Almashtirish tasdiqlanadi', 'Замена подтверждена'],
         text: ['Direktor bir bosishda tasdiqlaydi', 'Директор подтверждает в один клик'],
       },
       {

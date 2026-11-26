@@ -54,10 +54,10 @@ export const PROCESSES = [
   {
     title: "O'qituvchi kela olmaydi",
     screen: screen(
-      "O'rinbosar tizimi",
+      'Dars almashtirish',
       'Telegram',
       chatMessages([
-        { text: "7-B, matematika, 11:00. O'rinbosar kerak." },
+        { text: '7-B, matematika, 11:00. Almashtirish kerak.' },
         { text: "Dars vaqti bo'sh bo'lgan nomzodlarga taklif yuborildi." },
         { text: 'Qabul qilaman', own: true },
       ]),
