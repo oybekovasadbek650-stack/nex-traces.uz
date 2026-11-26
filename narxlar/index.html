@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Narxlar | Nex Traces AI kamera nazorati</title>
+    <meta
+      name="description"
+      content="Bog'cha, maktab va akademiyalar uchun AI kamera nazorati paketlari va narxlari. Bir martalik to'lov, oylik to'lov yo'q. Taxminiy narxni hisoblang."
+    />
+    <meta name="application-name" content="Nex Traces" />
+    <meta name="apple-mobile-web-app-title" content="Nex Traces" />
+    <meta name="theme-color" content="#060708" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="/icons/icon-96.png" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nex Traces" />
+    <meta property="og:title" content="Narxlar | Nex Traces AI kamera nazorati" />
+    <meta
+      property="og:description"
+      content="Bog'cha, maktab va akademiyalar uchun AI kamera nazorati paketlari va narxlari. Bir martalik to'lov, oylik to'lov yo'q. Taxminiy narxni hisoblang."
+    />
+    <meta property="og:locale" content="uz_UZ" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Exo+2:wght@400..700&family=Onest:wght@400;500;600&family=Saira:wdth,wght@100..125,400..700&display=swap"
+    />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body class="pricing-page">
+    <div class="space-backdrop" aria-hidden="true">
+      <canvas class="orbital-sky"></canvas>
+    </div>
+
+    <header class="pricing-hero">
+      <div class="container">
+        <div class="site-header">
+          <a class="brand" href="/">
+            <img src="/src/assets/logo/mark.svg" alt="" /><b
+              >NEX TRACES<span>AI video nazorat</span></b
+            >
+          </a>
+          <nav aria-label="Asosiy">
+            <a href="/#foyda">Foyda</a><a href="/#ishlar">Ishlar</a
+            ><a href="/narxlar/" aria-current="page">Narxlar</a><a href="#aloqa">Aloqa</a>
+          </nav>
+          <div class="language-switch" role="group" aria-label="Til">
+            <button type="button" id="lang-uz" lang="uz">UZ</button
+            ><button type="button" id="lang-ru" lang="ru">RU</button>
+          </div>
+        </div>
+
+        <a class="back-link" href="/"><span aria-hidden="true">←</span> Bosh sahifaga qaytish</a>
+
+        <div class="pricing-hero__content">
+          <p class="hero__eyebrow">Bog'cha, maktab va akademiyalar uchun</p>
+          <h1>Bir marta to'laysiz. <em>Tizim sizniki.</em></h1>
+          <p class="pricing-hero__lead">
+            Paketni tanlang va muassasangiz uchun narxni hisoblang. Oylik to'lov yo'q: tizim
+            o'rnatiladi, sozlanadi va to'liq sizga topshiriladi.
+          </p>
+          <ul class="pricing-chips">
+            <li>Bir martalik to'lov</li>
+            <li>Oylik to'lov yo'q</li>
+            <li>Tarmoqlarga chegirma</li>
+          </ul>
+          <div class="hero__actions">
+            <a class="button" href="#hisoblash">Narxni hisoblash</a
+            ><a class="button button--secondary" href="#paketlar">Paketlarni ko'rish</a>
+          </div>
+          <button type="button" class="motion-toggle" id="motion-toggle">Fonni to'xtatish</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="pricing-main">
+      <section id="paketlar">
+        <div class="container">
+          <p class="section-kicker">01 · Paketlar</p>
+          <h2>Uch xil yechim, bitta maqsad</h2>
+          <p class="section-lead">Narxlar bitta filial uchun, bir martalik to'lov.</p>
+          <div class="packages" id="packages"></div>
+        </div>
+      </section>
+
+      <section id="hisoblash">
+        <div class="container">
+          <p class="section-kicker">02 · Kalkulyator</p>
+          <h2>Tizimingizni yig'ing</h2>
+          <p class="section-lead">
+            Tanlovingizga qarab qaysi modullar ishlashi va narx shu zahoti ko'rinadi. Keyin uni bir
+            bosishda bizga yuborasiz.
+          </p>
+          <div class="calculator">
+            <form class="calculator__form" id="calculator-form">
+              <fieldset>
+                <legend>Muassasa turi</legend>
+                <div class="choice-list" id="institution-options"></div>
+              </fieldset>
+              <fieldset>
+                <legend>Paket</legend>
+                <div class="choice-list" id="package-options"></div>
+              </fieldset>
+              <div class="number-fields">
+                <label class="number-field">
+                  <span>Filiallar soni</span>
+                  <span class="stepper">
+                    <button type="button" data-step="-1" aria-label="Kamaytirish">−</button
+                    ><input
+                      type="number"
+                      name="branches"
+                      min="1"
+                      max="100"
+                      value="1"
+                      inputmode="numeric"
+                    /><button type="button" data-step="1" aria-label="Ko'paytirish">+</button>
+                  </span>
+                </label>
+                <label class="number-field">
+                  <span>Har filialda taxminan nechta kamera</span>
+                  <span class="stepper">
+                    <button type="button" data-step="-1" aria-label="Kamaytirish">−</button
+                    ><input
+                      type="number"
+                      name="cameras"
+                      min="1"
+                      max="500"
+                      value="16"
+                      inputmode="numeric"
+                    /><button type="button" data-step="1" aria-label="Ko'paytirish">+</button>
+                  </span>
+                </label>
+              </div>
+
+              <div class="system-orbit" id="system-orbit" aria-hidden="true">
+                <svg class="system-orbit__rings" viewBox="0 0 400 400">
+                  <circle cx="200" cy="200" r="96" />
+                  <circle cx="200" cy="200" r="150" />
+                  <circle class="system-orbit__dash" cx="200" cy="200" r="186" />
+                </svg>
+                <img class="system-orbit__core" src="/src/assets/logo/mark.svg" alt="" />
+                <div id="orbit-nodes"></div>
+              </div>
+            </form>
+
+            <aside class="calculator__result" aria-live="polite">
+              <p class="calculator__label">Sizning tizimingiz</p>
+              <p class="calculator__package" id="result-package"></p>
+              <p class="calculator__sum" id="result-sum"></p>
+              <p class="calculator__sub">bir martalik to'lov</p>
+              <ul class="calculator__lines" id="result-lines"></ul>
+              <p class="calculator__note" id="calculator-note"></p>
+              <a class="button" id="order-link" href="#" target="_blank" rel="noopener"
+                >Telegramda buyurtma berish</a
+              >
+              <button type="button" class="calculator__copy" id="order-copy">
+                Buyurtma matnini nusxalash
+              </button>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <p class="section-kicker">03 · Shartlar</p>
+          <h2>Narxga nima kiradi</h2>
+          <div class="terms">
+            <div>
+              <h3>Kiradi</h3>
+              <p>
+                O'rnatish, kameralarga ulash, qoidalarni sozlash va mas'ul xodimlarni o'rgatish.
+                To'lov bir marta, oylik to'lov yo'q.
+              </p>
+            </div>
+            <div>
+              <h3>Alohida kelishiladi</h3>
+              <p>
+                AI kompyuteri (tahlil muassasada ishlaydi) va Face ID terminallari. Mavjud bo'lsa,
+                ulardan foydalanamiz.
+              </p>
+            </div>
+            <div>
+              <h3>Tarmoqlarga chegirma</h3>
+              <p id="discount-text"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sinov">
+        <div class="container">
+          <div class="trial">
+            <div>
+              <p class="section-kicker">04 · Sinov</p>
+              <h2>Avval sinab ko'ring</h2>
+              <p>
+                Tizimni muassasangizda kichik hajmda ishga tushiramiz. Natijani Telegramdagi haqiqiy
+                xabarlarda o'zingiz ko'rasiz, keyin qaror qilasiz.
+              </p>
+            </div>
+            <ul>
+              <li><b>Hajm:</b> 1 filial, 2–4 kamera</li>
+              <li><b>Muddat:</b> 2 hafta</li>
+              <li><b>Natija:</b> topilgan holatlar va qisqa hisobot</li>
+              <li><b>Shartlar:</b> alohida kelishiladi</li>
+            </ul>
+          </div>
+          <a class="back-link back-link--bottom" href="/"
+            ><span aria-hidden="true">←</span> Bosh sahifaga qaytish</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <section class="contact-section pricing-contact" id="aloqa">
+      <div class="container">
+        <div>
+          <h2>Paket tanlashda yordam kerakmi?</h2>
+          <p class="contact-section__lead">
+            Muassasa turini, filiallar va kameralar sonini yozing. Mos paketni birga tanlaymiz.
+          </p>
+          <a
+            class="social-link"
+            href="https://www.instagram.com/nex_traces"
+            target="_blank"
+            rel="noopener"
+            aria-label="Nex Traces Instagram sahifasi"
+            ><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" />
+            </svg>
+            <span>Instagram: @nex_traces</span></a
+          >
+        </div>
+        <div class="contact-list" id="contact-list"></div>
+        <p class="site-footer">© 2026 Nex Traces. AI video nazorat tizimlari</p>
+      </div>
+    </section>
+    <div class="contact-dock" id="contact-dock"></div>
+
+    <script type="module" src="/src/pages/pricing.js"></script>
+  </body>
+</html>

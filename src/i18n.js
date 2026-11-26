@@ -22,6 +22,9 @@ export function onLocaleChange(listener) {
 
 const translate = (text) => DICTIONARIES[currentLocale]?.[text] ?? text;
 
+/** Kod ichida yasalgan matnni joriy tilga o'giradi. */
+export const t = translate;
+
 function translateTextNodes(root) {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
 
